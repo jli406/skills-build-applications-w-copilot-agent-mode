@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 interface HealthResponse {
   status: string;
-  uptimeSeconds: number;
 }
 
 function HealthPage() {
@@ -12,9 +11,7 @@ function HealthPage() {
   useEffect(() => {
     fetch('/api/health')
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('API request failed');
-        }
+        if (!response.ok) throw new Error('API request failed');
         return response.json();
       })
       .then((data: HealthResponse) => setHealth(data))
@@ -24,16 +21,7 @@ function HealthPage() {
   return (
     <div>
       <h2>API Health</h2>
-      {error ? (
-        <div className="alert alert-danger">{error}</div>
-      ) : health ? (
-        <div className="alert alert-success">
-          <p>Status: {health.status}</p>
-          <p>Uptime: {health.uptimeSeconds.toFixed(1)} seconds</p>
-        </div>
-      ) : (
-        <div>Loading health information…</div>
-      )}
+      {error ? <div className="alert alert-danger">{error}</div> : health ? <div className="alert alert-success">Status: {health.status}</div> : <div>Loading…</div>}
     </div>
   );
 }

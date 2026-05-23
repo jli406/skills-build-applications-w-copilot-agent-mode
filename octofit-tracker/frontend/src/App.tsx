@@ -12,7 +12,7 @@ function App() {
             Home
           </NavLink>
           <NavLink className="nav-link" to="/health">
-            API Health
+            Health
           </NavLink>
         </nav>
       </header>
